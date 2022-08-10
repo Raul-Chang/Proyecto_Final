@@ -38,9 +38,33 @@
             </div>
           </nav>        
     </header>
-  <section class="sectioncp">
-    <h1>Finalizar Proceso de Compra</h1>
 
+  <h1>Finalizar Proceso de Compra</h1>
+
+  <section class="sectioncp">
+    <div id="resumen">
+            <h2 class="sectioncp__restitulo">Resumen de compra</h2>
+
+    </div>
+        <div class="sectioncp__divform">
+            
+            <form id="form" class="sectioncp_form">
+              <h2>Completa tus datos</h2>
+                <label for="nombre">Nombre:</label>
+                <input type="text" placeholder="Ingrese Nombre Completo" id="nombre">
+                <label for="mail">Mail:</label>
+                <input type="email" placeholder="Ingrese Mail" id="mail">
+                <label for="direccion">Dirección:</label>
+                <input type="text" placeholder="Ingrese su Dirección" id="direccion">
+                <label for="telefono">Teléfono:</label>
+                <input type="number" placeholder="Ingrese un Número de Contacto" id="telefono">
+                <input type="submit" value="Terminar compra" id="cpform__submit">
+                <h3 class="total-compra"></h3>
+            </form>
+            <div id="confirmacion">
+    
+            </div>
+        </div>
   </section>
     <footer class="container-fluid footer"> <!-- Pie de pagina -->
         <div class="row bg-dark text-white p-2">
@@ -63,11 +87,7 @@
           </div>
         </div>
       </footer>
- 
-    
-        <!-- <script src="productos.js"></script> -->
-        <!-- <script src="script.js"></script>  -->
-        <script src="compra.js"></script>    
+        <script src="../js/compra.js"></script>    
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>  
 </body>
 </html>

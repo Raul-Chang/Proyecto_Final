@@ -11,7 +11,7 @@ const tarjetasHtml = listaProductos.reduce((acc, elemento, i) => {
                 ${elemento.description}
             </p>             
             <p class="p-tarjeta">
-                Precio: ${elemento.price}
+                Precio: $${elemento.price}
             </p>
             <button class="btnAgregar" id="${elemento.id}">Agregar a Compra</button>              
         </div>
@@ -27,10 +27,16 @@ contenedorTarjetas.innerHTML = tarjetasHtml
 const formularioSaludo = document.querySelector(".nombre-saludo")
 const inputNombreSaludo = document.querySelector(".input-nombre")
 const saludo = document.querySelector(".saludo")
+let idplus = listaProductos.map((el) => el.id)
+
+//Uso de spread en el saludo
 
 formularioSaludo.onsubmit = (event) => {
     event.preventDefault()
-    saludo.innerHTML = `Hola ${inputNombreSaludo.value} te muestro el listado de productos de la tienda: `
+    saludo.innerHTML = `
+    <h2>Hola ${inputNombreSaludo.value} te muestro el listado de productos de la tienda:</h2>
+    <h3 class="saludoh3">Actualmente tenemos ${Math.max(...idplus)} productos en nuestro catálogo</h3>
+    `
     formularioSaludo.reset()
     formularioSaludo.style.display = "none";
 }
@@ -74,6 +80,7 @@ for (btn of btnAgregar) {
 
 // Mostrar Carro
 
+//Uso del operador OR
 let carro = JSON.parse(localStorage.getItem("carro")) || []
 
 function mostrarCarro(){
@@ -91,6 +98,8 @@ function mostrarCarro(){
     let totalCompra = document.createElement("p")
     totalCompra.setAttribute("class", "total")
     totalCompra.innerText = ("Total : " + total)
+    localStorage.setItem("total", total)
+
     divCarro.append(totalCompra)
 
     let btnBorrar = document.querySelectorAll(".btnBorrar")
@@ -111,9 +120,11 @@ function mostrarCarro(){
     divCarro.append(finalizarCompra)
 
     finalizarCompra.addEventListener("click", () => {
-        window.location.href="compra.html"
+        window.location.href="pages/compra.html"
     })
 }
+
+//Uso del operador AND
 carro.length && mostrarCarro()
 
 // Eliminar Producto
@@ -121,8 +132,7 @@ carro.length && mostrarCarro()
 function eliminarProducto(e) {
     divCarro.innerHTML = ""
     let btnX = e.target;
-    let idBtnX = btnX.getAttribute("id");
-    console.log(idBtnX)
+    let idBtnX = btnX.getAttribute("id");    
     let indexProducto = carro.findIndex(productos =>  productos.id === idBtnX) 
     alert("Eliminaste " + carro[indexProducto].description + " del carro de compras")   
     carro.splice(indexProducto, 1)
@@ -131,6 +141,7 @@ function eliminarProducto(e) {
     
     mostrarCarro(carro)
 }
+
 
 
 
