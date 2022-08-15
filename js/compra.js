@@ -62,7 +62,7 @@ formulario.onsubmit = (e) => {
     if(carroCompra.length>0){
         terminarCompra()
     } else {
-        alert("No ha ingresado productos a su carro de compras")
+        swal("No ha ingresado productos a su carro de compras","Por favor revise su compra","warning")
     }
     
     formulario.reset()
@@ -72,12 +72,24 @@ function eliminarProducto(e) {
     resumenCompra.innerHTML = ""
     let btnX = e.target;
     let idBtnX = btnX.getAttribute("id");      
-    let indexProducto = carroCompra.findIndex(productos =>  productos.id === idBtnX) 
-    console.log(idBtnX)
-     alert("Eliminaste " + carroCompra[indexProducto].description + " del carro de compras")   
-    carroCompra.splice(indexProducto, 1)
+    let indexProducto = carroCompra.findIndex(productos =>  productos.id === idBtnX)     
+     swal("Eliminaste " + carroCompra[indexProducto].description + " del carro de compras","Necesitas algo más? Revisa nuestro catálogo", "info")   
+     Toastify({
+        text: "Acción Exitosa",
+        close: true,
+        duration: 3000
+    }).showToast()
+     carroCompra.splice(indexProducto, 1)
     localStorage.removeItem("carro")
     localStorage.setItem("carro", JSON.stringify(carroCompra));
+    total = carroCompra.reduce((acc, p) => acc+p.price, 0)
+    localStorage.setItem("total", total)
+    totalCompra.innerHTML = `Total de la Compra es: ${total}`
+    if(carroCompra.length==0){
+        resumenCompra.innerHTML=`<h3 class="noproductosh">No hay productos en su carro de compra</h3>`
+        swal("Ha eliminado todos los productos de su carro de compra")
+    }
             
     resumenCarroCompra(carroCompra)
+    
  }

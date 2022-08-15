@@ -16,14 +16,15 @@ class ClienteConsultas {
 
 
 formConsulta.onsubmit = (e) => {
-    e.preventDefault()
-
+    e.preventDefault()    
+    swal("Solicitud Enviada Exitosamente", "Pronto nos comunicaremos con usted", "success")
     //Uso de destructuracion
     let clientesConsultas = new ClienteConsultas(nombreConsulta.value, emailConsulta.value, textConsulta.value)    
     let {nombre, email} = clientesConsultas
-    formConsulta.style.display = "none"
+    formConsulta.style.display = "none"    
     respConsulta.innerHTML= `
     <p class="respuesta-contacto">${nombre.toUpperCase()} gracias por comunicarte con nosotros</p>
-    <p class="respuesta-contacto">En un tiempo de hasta 48 horas nos estaremos comunicando al mail: ${email}</p>`
+    <p class="respuesta-contacto">En un tiempo de hasta 48 horas nos estaremos comunicando al mail: ${email}</p>`   
 
 }
+

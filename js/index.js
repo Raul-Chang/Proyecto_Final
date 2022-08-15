@@ -72,7 +72,12 @@ function agregarAlCarro(e) {
     
     localStorage.setItem("carro", JSON.stringify(carro))    
 
-    alert("Agregaste " + productoAgregado.description + " al carro de compras")
+    swal("Agregaste " + productoAgregado.description + " al carro de compras", "Gracias por escogernos", "success")
+    Toastify({
+        text: "Acción Exitosa",
+        close: true,
+        duration: 3000
+    }).showToast()
     mostrarCarro()
 }
 for (btn of btnAgregar) {
@@ -134,10 +139,15 @@ function eliminarProducto(e) {
     let btnX = e.target;
     let idBtnX = btnX.getAttribute("id");    
     let indexProducto = carro.findIndex(productos =>  productos.id === idBtnX) 
-    alert("Eliminaste " + carro[indexProducto].description + " del carro de compras")   
+    swal("Eliminaste " + carro[indexProducto].description + " del carro de compras","Necesitas algo más? Revisa nuestro catálogo", "info")   
     carro.splice(indexProducto, 1)
     localStorage.removeItem("carro")
     localStorage.setItem("carro", JSON.stringify(carro));
+    Toastify({
+        text: "Acción Exitosa",
+        close: true,
+        duration: 3000
+    }).showToast()
     
     mostrarCarro(carro)
 }
