@@ -1,26 +1,53 @@
 // Metodo reduce para generar las tarjetas
 
-const tarjetasHtml = listaProductos.reduce((acc, elemento, i) => {   
-
-    return acc = acc + `    
-        <div class="tarjeta">
-            <div class="img-container">
-                <img src=${elemento.img} alt=${elemento.description}>
-            </div>   
-            <p class="p-tarjeta">
-                ${elemento.description}
-            </p>             
-            <p class="p-tarjeta">
-                Precio: $${elemento.price}
-            </p>
-            <button class="btnAgregar" id="${elemento.id}">Agregar a Compra</button>              
-        </div>
-    `       
-},"")
-
+let tarjetasHtml
 const contenedorTarjetas = document.querySelector(".contenedor-tarjetas")
+let listaProductos = []
+let btnAgregar
+let divCarro = document.querySelector("#carro")
+let seccionCarroCompra = document.querySelector("#seccion-carro-compra")
+let vaciar = document.querySelector("#vaciar")
 
-contenedorTarjetas.innerHTML = tarjetasHtml
+
+let listadoProductos2 = () => {
+
+    fetch(`productos.json`)
+    .then( resp => resp.json())
+    .then( data => {
+        listaProductos = data.listaProductos
+        tarjetas(listaProductos)        
+        contenedorTarjetas.innerHTML = tarjetasHtml
+        btnAgregar = document.querySelectorAll(".btnAgregar")        
+        fondoTarjeta()        
+        mostrarCarro()         
+        for (btn of btnAgregar) {        
+            btn.addEventListener("click", agregarAlCarro)}      
+
+    })
+    .catch( () => console.log("salio mal"))
+}
+
+listadoProductos2()
+
+function tarjetas (productos){
+    tarjetasHtml = productos.reduce((acc, elemento) => {   
+
+        return acc = acc + `    
+            <div class="tarjeta">
+                <div class="img-container">
+                    <img src=${elemento.img} alt=${elemento.description}>
+                </div>   
+                <p class="p-tarjeta">
+                    ${elemento.description}
+                </p>             
+                <p class="p-tarjeta">
+                    Precio: $${elemento.price}
+                </p>
+                <button class="btnAgregar" id="${elemento.id}">Agregar a Compra</button>              
+            </div>
+        `       
+    },"")
+}
 
 //Recepcion de valores por formulario para generar un saludo al cliente
 
@@ -43,32 +70,26 @@ formularioSaludo.onsubmit = (event) => {
 
 //Cambiando el color de fondo y el tama;o del texto al mover el mouse sobre las tarjetas de productos
 
-const divTarjeta = [document.querySelectorAll(".tarjeta")]
+function fondoTarjeta() {
+    const divTarjeta = [document.querySelectorAll(".tarjeta")]
 
-divTarjeta[0].forEach( function (ele , i, arreglo) {
-    ele.onmouseover = () => {    
+    divTarjeta[0].forEach( function (ele , i, arreglo) {
+        ele.onmouseover = () => {    
         ele.classList.toggle("tarjeta-over")        
     } 
-    ele.onmouseout = () => {
+        ele.onmouseout = () => {
         ele.classList.toggle("tarjeta-over") 
     }
 })
-
-
+}
 // Funcion para Agregar productos al carro de compras
 
-let btnAgregar = document.querySelectorAll(".btnAgregar")
-let divCarro = document.querySelector("#carro")
-let seccionCarroCompra = document.querySelector("#seccion-carro-compra")
-let vaciar = document.querySelector("#vaciar")
-
-function agregarAlCarro(e) {
+function agregarAlCarro(e) {    
     divCarro.innerHTML = ""
     const btn = e.target;
     const idBtn = btn.getAttribute("id");
     let productoAgregado = listaProductos.find(productos => productos.id === idBtn)
     carro.push(productoAgregado) 
-
     
     localStorage.setItem("carro", JSON.stringify(carro))    
 
@@ -80,8 +101,12 @@ function agregarAlCarro(e) {
     }).showToast()
     mostrarCarro()
 }
-for (btn of btnAgregar) {
-    btn.addEventListener("click", agregarAlCarro)}
+
+// function clickAgregar () {       
+//     for (btn of btnAgregar) {        
+//         btn.addEventListener("click", agregarAlCarro)}
+
+// }
 
 // Mostrar Carro
 
@@ -151,7 +176,6 @@ function eliminarProducto(e) {
     
     mostrarCarro(carro)
 }
-
 
 
 

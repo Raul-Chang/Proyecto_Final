@@ -42,6 +42,7 @@ let formulario = document.querySelector("#form")
 function terminarCompra() {
 
     if (nombre.value !== "" && mail.value !== "" && telefono.value !== "" && direccion.value !== "") {
+        swal("Ha completado exitosamente su compra", "Gracias por escogernos", "success")
         formulario.style.display = "none"
         divConfirmacion.style.display = "flex"
         divConfirmacion.innerHTML = `
