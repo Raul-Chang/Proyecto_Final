@@ -114,6 +114,7 @@ function agregarAlCarro(e) {
 let carro = JSON.parse(localStorage.getItem("carro")) || []
 
 function mostrarCarro(){
+    divCarro.innerHTML = ""
     carro.forEach(listaProductos => {
         divCarro.innerHTML += `
         <div class="productoCarro">
