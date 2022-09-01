@@ -33,7 +33,7 @@ function tarjetas (productos){
     tarjetasHtml = productos.reduce((acc, elemento) => {   
 
         return acc = acc + `    
-            <div class="tarjeta">
+            <div class="tarjeta col-lg-4 col-md-6 col-sm-12">
                 <div class="img-container">
                     <img src=${elemento.img} alt=${elemento.description}>
                 </div>   
@@ -102,13 +102,6 @@ function agregarAlCarro(e) {
     mostrarCarro()
 }
 
-// function clickAgregar () {       
-//     for (btn of btnAgregar) {        
-//         btn.addEventListener("click", agregarAlCarro)}
-
-// }
-
-// Mostrar Carro
 
 //Uso del operador OR
 let carro = JSON.parse(localStorage.getItem("carro")) || []

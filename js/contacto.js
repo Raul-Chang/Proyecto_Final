@@ -14,9 +14,26 @@ class ClienteConsultas {
     }
 }
 
+formConsulta.addEventListener(`submit`, formSubmit)
 
-formConsulta.onsubmit = (e) => {
+async function formSubmit(e){
     e.preventDefault()    
+    const form = new FormData(this)
+    const response = await fetch(this.action, {
+        method: this.method,
+        body: form,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+    if (response.ok){
+        this.reset()
+        respSubmit()
+    }
+}
+
+function respSubmit() {
+        
     swal("Solicitud Enviada Exitosamente", "Pronto nos comunicaremos con usted", "success")
     //Uso de destructuracion
     let clientesConsultas = new ClienteConsultas(nombreConsulta.value, emailConsulta.value, textConsulta.value)    
